@@ -1,9 +1,10 @@
 import { compose, applyMiddleware } from "redux";
 import { legacy_createStore as createStore } from "redux";
 import logger from "redux-logger";
+//logger is essentially sth that allows us to see what the state looks like before an action is dispatched 
 
 import { rootReducer } from "./root-reducer";
 const middleWares = [logger];
 
 const composedEnhancers = compose(applyMiddleware(...middleWares));
-export const store = createStore(rootReducer, undefined, middleWares);
+export const store = createStore(rootReducer, undefined, composedEnhancers );
