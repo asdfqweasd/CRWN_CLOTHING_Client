@@ -1,0 +1,33 @@
+import { AnyAction } from "redux";
+import { Category } from "./categories.types";
+import { fetchCategoriesStart,fetchCategoriesFailed,fetchCategoriesSuccess} from "./categories.action";
+
+export type CategoryState = {
+  readonly categories: Category[];
+  readonly isLoading: boolean;
+  readonly error: Error | null;
+}
+
+export const CATEGORIES_INITIAL_STATE : CategoryState = {
+  categories: [],
+  isLoading: false,
+  error: null,
+};
+
+// now reducer is fully type safe
+export const categoriesReducer = (
+  state = CATEGORIES_INITIAL_STATE,
+  action = {} as AnyAction
+): CategoryState => {
+  if (fetchCategoriesStart.match(action)){
+    return {...state, isLoading: true }
+  }
+  if (fetchCategoriesSuccess.match(action)){
+    return { ...state, categories: action.payload, isLoading: false };
+  }
+  if (fetchCategoriesFailed.match(action)){
+    return { ...state, error: action.payload, isLoading: false };
+  }
+  return state;
+  };
+
