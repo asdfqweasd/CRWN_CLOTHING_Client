@@ -1,13 +1,24 @@
 import { takeLatest, all, call, put } from "typed-redux-saga";
-
-import { getCategoriesAndDocuments } from "../../utils/firebase/firebase.utils";
+import axios from "axios";
+// import { getCategoriesAndDocuments } from "../../utils/firebase/firebase.utils";
 
 import {
   fetchCategoriesSuccess,
   fetchCategoriesFailed,
 } from "./categories.action";
 
-import { CATEGORIES_ACTION_TYPES } from "./categories.types";
+import { CATEGORIES_ACTION_TYPES, Category } from "./categories.types";
+import BASE_URL from "../../config";
+
+// const productTypes = ["hats", "jackets", "sneakers", "womens", "mens"];
+
+export const getCategoriesAndDocuments = async (): Promise<Category[]> => {
+  const endpoint = "/products/all";
+  const url = BASE_URL + endpoint;
+  const response = await axios.get(url);
+  console.log(response.data);
+  return response.data;
+};
 
 export function* fetchCategoriesAsync() {
   try {

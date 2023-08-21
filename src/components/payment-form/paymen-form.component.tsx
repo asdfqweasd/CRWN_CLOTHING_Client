@@ -21,24 +21,26 @@ const PaymentForm = () => {
   const paymentHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const response = await fetch(
+      "http://localhost:3031/payment/create-payment-intent",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ amount: amount * 100 }),
+      }
+    ).then((res) => {
+      return res.json();
+    });
+    const clientSecret = response.clientSecret;
     if (!stripe || !elements) {
       return;
     }
     setIsProcessingPayment(true);
-    const response = await fetch("/.netlify/functions/create-payment-intent", {
-      method: "post",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({ amount: amount * 100 }),
-    }).then((res) => {
-      return res.json();
-    });
-    const clientSecret = response.paymentIntent.client_secret;
-
     const cardDetails = elements.getElement(CardElement);
 
-    if(cardDetails ===null) return;
+    if (cardDetails === null) return;
 
     const paymentResult = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {

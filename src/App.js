@@ -5,11 +5,10 @@ import { useDispatch } from "react-redux/es/exports";
 //   createUserDocumentFromAuth,
 // } from "./utils/firebase/firebase.utils";
 // import { setCurrentUser } from "./store/user/user.action";
-
 import { Route, Routes } from "react-router-dom";
 import Home from "./routes/home/home.component";
 import Navigation from "./routes/navigation/navigation.component";
-import Authentication from "./routes/authentication/authentication.component.jsx";
+import Authentication from "./routes/authentication/authentication.component";
 import Shop from "./routes/shop/shop.component";
 import Checkout from "./routes/checkout/checkout.component";
 import { checkUserSession } from "./store/user/user.action";
