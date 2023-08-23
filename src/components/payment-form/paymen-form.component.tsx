@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { selectCartTotal } from "../../store/cart/cart.selector";
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { BUTTON_TYPE_CLASSES } from "../button/button.component";
+import BASE_URL from "../../config";
 
 const PaymentForm = () => {
   const stripe = useStripe();
@@ -17,20 +18,17 @@ const PaymentForm = () => {
   const amount = useSelector(selectCartTotal);
   const currentUser = useSelector(selectCurrentUser);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
-
+  const endpoint = "/payment/create-payment-intent";
+  const url = BASE_URL + endpoint;
   const paymentHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const response = await fetch(
-      "http://localhost:3031/payment/create-payment-intent",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ amount: amount * 100 }),
-      }
-    ).then((res) => {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ amount: amount * 100 }),
+    }).then((res) => {
       return res.json();
     });
     const clientSecret = response.clientSecret;

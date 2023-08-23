@@ -2,11 +2,8 @@ import { useState, FormEvent, ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
 import FormInput from "../form-input/form-input.component";
 import { SignInContainer, ButtonsContainer } from "./sign-in-form.styles";
-import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
-import {
-  emailSignInStart,
-  googleSignInStart,
-} from "../../store/user/user.action";
+import Button from "../button/button.component";
+import { emailSignInStart } from "../../store/user/user.action";
 
 const defaultFormFields = {
   email: "",
@@ -21,9 +18,9 @@ const SignInForm = () => {
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
-  const signInWithGoogle = async () => {
-    dispatch(googleSignInStart());
-  };
+  // const signInWithGoogle = async () => {
+  //   dispatch(googleSignInStart());
+  // };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

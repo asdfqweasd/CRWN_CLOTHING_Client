@@ -18,7 +18,7 @@ const App = () => {
   // user is a very top level thing that matters
   useEffect(() => {
     dispatch(checkUserSession());
-  }, []);
+  }, [dispatch]);
 
   return (
     <Routes>
