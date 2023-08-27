@@ -1,4 +1,4 @@
 // config.js
-const BASE_URL = "http://54.206.23.67:80";
+const BASE_URL = "https://www.crwnclothzard.com";
 
 export default BASE_URL;
